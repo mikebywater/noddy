@@ -11,9 +11,13 @@ $klein = new \Klein\Klein();
 
 $klein->respond('GET', '/', function () {
     $c = new App\HomeController();
-    return $c->index();
+    return $c->welcome();
 });
 
+$klein->respond('GET', '/home', function () {
+    $c = new App\HomeController();
+    return $c->home();
+});
 
 $klein->respond('GET', '/users', function () {
     $c = new App\UsersController();

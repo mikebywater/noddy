@@ -11,9 +11,24 @@
     <script src="/assets/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <div class="container-fluid">
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a href="/home">Home</a></li>
-        <li role="presentation" ><a  href="/users">Users</a></li>
-        <li role="presentation" ><a  href="/">Logout</a></li>
-    </ul>
+    <br>
+    <br>
+    <div class = "row">
+        <div class = "col-md-12 text-center">
+            <img class="center-block" src="/assets/img/logo.gif" />
+            <h3>Noddy says ..</h3>
+            <br>
+            <p><a class="btn btn-primary btn-lg" href="/users" role="button">Login</a></p>
+            <blockquote>
+                <p>{{quote}}</p>
+            </blockquote>
+            <small><em>{{person}}</em></small>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+</div>
+</body>
+</html>

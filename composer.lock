@@ -4,37 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "29e1edb1c7eaa809b370f463aac6c3ba",
+    "hash": "fed92668c4f93fd649a99121b877d903",
     "packages": [
-        {
-            "name": "aptsol/wiggle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://mikebywater@bitbucket.org/mikebywater/wiggle.git",
-                "reference": "3f60b38130999ff29fe4a731d1ab3b0cd7591f7d"
-            },
-            "require": {
-                "php": "~5.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Wiggle": "src/"
-                }
-            },
-            "license": [
-                "GPL"
-            ],
-            "authors": [
-                {
-                    "name": "mike.bywater",
-                    "email": "mike.j.bywater@gmail.com"
-                }
-            ],
-            "description": "It wiggles",
-            "time": "2015-04-10 14:05:32"
-        },
         {
             "name": "danielstjules/stringy",
             "version": "1.9.0",
@@ -409,30 +380,33 @@
             "time": "2014-11-07 07:35:23"
         },
         {
-            "name": "mikebywater/hello-world",
+            "name": "mikebywater/parrot",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://mikebywater@bitbucket.org/mikebywater/hello-world.git",
-                "reference": "e465cf1b0a954f45fc0bad343a12d3fc032135c9"
+                "url": "https://mikebywater@bitbucket.org/mikebywater/parrot.git",
+                "reference": "6e5bad9af110b274d07f450fe95d206d2ea708e0"
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "~5.3"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "HelloWorld": "src/"
+                    "Parrot": "src/"
                 }
             },
+            "license": [
+                "GPL"
+            ],
             "authors": [
                 {
-                    "name": "Mike Bywater",
+                    "name": "mike.bywater",
                     "email": "mike.j.bywater@gmail.com"
                 }
             ],
-            "description": "Simple hello world class",
-            "time": "2015-04-09 22:50:57"
+            "description": "It sqwaks comments from famous quotes to facts and statistics",
+            "time": "2015-04-10 22:21:44"
         },
         {
             "name": "mustache/mustache",
@@ -591,8 +565,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "mikebywater/hello-world": 20,
-        "aptsol/wiggle": 20
+        "mikebywater/parrot": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

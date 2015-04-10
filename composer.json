@@ -2,20 +2,14 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://mikebywater@bitbucket.org/mikebywater/hello-world.git"
-    },
-    {
-      "type": "vcs",
-      "url": "https://mikebywater@bitbucket.org/mikebywater/wiggle.git"
+      "url": "https://mikebywater@bitbucket.org/mikebywater/parrot.git"
     }
-
   ],
   "require": {
-    "mikebywater/hello-world": "dev-master",
-    "aptsol/wiggle": "dev-master",
     "illuminate/database": "*",
     "mustache/mustache": "*",
-    "klein/klein" : "*"
+    "klein/klein" : "*",
+    "mikebywater/parrot" : "dev-master"
   },
   "autoload": {
     "psr-0": {

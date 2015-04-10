@@ -10,13 +10,20 @@ class HomeController extends BaseController{
         $this::init();
     }
 
-    public function index(){
+    public function welcome(){
 
-        $quote = "Noddy says relax";
-
-        return $this->m->render('index', array("quote" => $quote));
+        $data = \Parrot\Quote::squawk();
+        $quote = $data['comment'];
+        $person = $data['source'];
+        return $this->m->render('welcome', array("quote" => $quote, "person" => $person));
 
     }
 
+    public function home(){
 
+        $quote = "Noddy says relax";
+
+        return $this->m->render('home', array("quote" => $quote));
+
+    }
 }
