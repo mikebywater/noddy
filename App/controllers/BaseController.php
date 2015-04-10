@@ -10,15 +10,14 @@ class BaseController {
 
     var $m;
 
-    public function __construct(){
 
+    public function init($entity = "")
+    {
 
         $this->m = new Mustache_Engine(array(
-            'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/../../views'),
+            'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/../../views/' . $entity),
         ));
-        
-
-
     }
+
 
 }

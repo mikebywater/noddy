@@ -2,13 +2,16 @@
 require_once 'database.php';
 require_once 'vendor/autoload.php'; // Autoload files using Composer autoload
 require_once 'App/controllers/UsersController.php';
-
-
-
-
-
+require_once 'App/controllers/HomeController.php';
 
 $klein = new \Klein\Klein();
+
+
+$klein->respond('GET', '/', function () {
+    $c = new App\HomeController();
+    return $c->index();
+});
+
 
 $klein->respond('GET', '/users', function () {
     $c = new App\UsersController();
@@ -16,7 +19,7 @@ $klein->respond('GET', '/users', function () {
 });
 
 $klein->respond('GET', '/users/[i:id]', function ($request) {
-    $c = new App\UsersController();
+    $c = new App\UsersController('users');
     return $c->show($request->id);
 });
 
