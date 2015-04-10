@@ -1,18 +1,16 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{{>../layouts/master-top}}
 
-<h1> Users </h1>
+        <h1> Users </h1>
 
-<table class = "table table-striped">
-    <tr>
-        <th>Name</th><th>Email</th>
-    </tr>
-    {{#.}}
-        <tr>
-            <td><a href = "/users/{{id}}">{{name}}</a></td><td>{{email}}</td>
-        </tr>
-    {{/.}}
-</table>
+        <table class = "table table-striped">
+            <tr>
+                <th>Name</th><th>Email</th>
+            </tr>
+            {{#.}}
+                <tr>
+                    <td><a href = "/users/{{id}}">{{name}}</a></td><td>{{email}}</td>
+                </tr>
+            {{/.}}
+        </table>
 
-
+{{>../layouts/master-bottom}}

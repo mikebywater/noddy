@@ -3,10 +3,16 @@
     {
       "type": "vcs",
       "url": "https://mikebywater@bitbucket.org/mikebywater/hello-world.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://mikebywater@bitbucket.org/mikebywater/wiggle.git"
     }
+
   ],
   "require": {
     "mikebywater/hello-world": "dev-master",
+    "aptsol/wiggle": "dev-master",
     "illuminate/database": "*",
     "mustache/mustache": "*",
     "klein/klein" : "*"

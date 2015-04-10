@@ -4,8 +4,37 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6da0020922fd159aef2e87054c3598db",
+    "hash": "29e1edb1c7eaa809b370f463aac6c3ba",
     "packages": [
+        {
+            "name": "aptsol/wiggle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://mikebywater@bitbucket.org/mikebywater/wiggle.git",
+                "reference": "3f60b38130999ff29fe4a731d1ab3b0cd7591f7d"
+            },
+            "require": {
+                "php": "~5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Wiggle": "src/"
+                }
+            },
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "mike.bywater",
+                    "email": "mike.j.bywater@gmail.com"
+                }
+            ],
+            "description": "It wiggles",
+            "time": "2015-04-10 14:05:32"
+        },
         {
             "name": "danielstjules/stringy",
             "version": "1.9.0",
@@ -562,7 +591,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "mikebywater/hello-world": 20
+        "mikebywater/hello-world": 20,
+        "aptsol/wiggle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
