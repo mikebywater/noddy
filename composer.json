@@ -1,0 +1,19 @@
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://mikebywater@bitbucket.org/mikebywater/hello-world.git"
+    }
+  ],
+  "require": {
+    "mikebywater/hello-world": "dev-master",
+    "illuminate/database": "*",
+    "mustache/mustache": "*",
+    "klein/klein" : "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "App": "/"
+    }
+  }
+}
