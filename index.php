@@ -1,8 +1,6 @@
 <?php
 require_once 'database.php';
 require_once 'vendor/autoload.php'; // Autoload files using Composer autoload
-require_once 'App/controllers/UsersController.php';
-require_once 'App/controllers/HomeController.php';
 
 $klein = new \Klein\Klein();
 

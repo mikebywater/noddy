@@ -3,8 +3,7 @@
 namespace App;
 use Parrot\Quote;
 
-require_once 'App/models/User.php';
-require_once 'App/controllers/BaseController.php';
+
 
 class HomeController extends BaseController{
 

@@ -12,9 +12,7 @@
     "mikebywater/parrot" : "dev-master",
     "robmorgan/phinx": "*"
   },
-  "autoload": {
-    "psr-0": {
-      "App": "/noddy"
-    }
+  "autoload":{
+    "classmap": [ "App/" ]
   }
 }

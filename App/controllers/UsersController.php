@@ -1,8 +1,7 @@
 <?php
 
 namespace App;
-require_once 'App/models/User.php';
-require_once 'App/controllers/BaseController.php';
+
 
 class UsersController extends BaseController{
 
