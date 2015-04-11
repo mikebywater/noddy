@@ -23,5 +23,10 @@ class UsersController extends BaseController{
         return $this->m->render('show', $user);
     }
 
+    public function create()
+    {
+        return $this->m->render('create');
+    }
+
 
 }

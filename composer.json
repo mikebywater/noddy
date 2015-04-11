@@ -9,11 +9,12 @@
     "illuminate/database": "*",
     "mustache/mustache": "*",
     "klein/klein" : "*",
-    "mikebywater/parrot" : "dev-master"
+    "mikebywater/parrot" : "dev-master",
+    "robmorgan/phinx": "*"
   },
   "autoload": {
     "psr-0": {
-      "App": "/"
+      "App": "/noddy"
     }
   }
 }

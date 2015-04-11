@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use Parrot\Quote;
+
 require_once 'App/models/User.php';
 require_once 'App/controllers/BaseController.php';
 
@@ -12,7 +14,7 @@ class HomeController extends BaseController{
 
     public function welcome(){
 
-        $data = \Parrot\Quote::squawk();
+        $data = Quote::squawk();
         $quote = $data['comment'];
         $person = $data['source'];
         return $this->m->render('welcome', array("quote" => $quote, "person" => $person));
