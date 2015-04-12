@@ -15,7 +15,14 @@ class AuthController extends BaseController{
 
     public function login()
     {
-        return $this->m->render('login');
+        if($this->auth->authorize(false))
+        {
+            header('location: /home');
+        }
+        else
+        {
+            return $this->m->render('login');
+        }
     }
 
     public function attempt($email,$password)

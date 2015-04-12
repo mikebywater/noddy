@@ -9,7 +9,7 @@ class HomeController extends BaseController{
 
 
     public function __construct(){
-        $this::init();
+        $this::init('home');
         $this->auth = new Auth();
 
     }

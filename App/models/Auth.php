@@ -44,7 +44,7 @@ class Auth {
         header('location: ' .$this->redirectUrl);
     }
 
-    public function authorize($level = 0)
+    public function authorize($redirect = true)
     {
         if (isset($_SESSION['user']))
         {
@@ -53,13 +53,15 @@ class Auth {
         }
         else
         {
-            $this->redirect();
+            if($redirect) {
+                $this->redirect();
+            }
         }
     }
 
-    public function user()
+    public function user($redirect = true)
     {
-        $this->authorize();
+        $this->authorize($redirect);
         return $this->user;
 
     }
