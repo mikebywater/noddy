@@ -1,35 +1,60 @@
 <?php
-require_once 'database.php';
-require_once 'vendor/autoload.php'; // Autoload files using Composer autoload
-
-$klein = new \Klein\Klein();
 
 
-$klein->respond('GET', '/', function () {
+require_once 'init.php';
+
+
+$router->respond('GET', '/', function () {
     $c = new App\HomeController();
     return $c->welcome();
 });
 
-$klein->respond('GET', '/home', function () {
+$router->respond('GET', '/home', function () {
     $c = new App\HomeController();
     return $c->home();
 });
 
-$klein->respond('GET', '/users', function () {
+$router->respond('GET', '/users', function () {
     $c = new App\UsersController();
     return $c->index();
 });
 
-$klein->respond('GET', '/users/[i:id]', function ($request) {
-    $c = new App\UsersController('users');
+$router->respond('GET', '/users/[i:id]', function ($request) {
+    $c = new App\UsersController();
     return $c->show($request->id);
 });
 
-$klein->respond('GET', '/users/create', function () {
-    $c = new App\UsersController('users');
+$router->respond('GET', '/users/create', function () {
+    $c = new App\UsersController();
     return $c->create();
 });
 
+$router->respond('GET', '/login', function () {
+    $c = new App\AuthController();
+    return $c->login();
+});
+
+$router->respond('POST', '/login', function () {
+    $c = new App\AuthController();
+    return $c->attempt($_POST['email'], $_POST['password']);
+});
+
+$router->respond('GET', '/register', function () {
+    $c = new App\AuthController();
+    return $c->register();
+});
+
+$router->respond('POST', '/register', function () {
+    $c = new App\AuthController();
+    return $c->attemptRegister($_POST);
+});
+
+$router->respond('GET', '/logout', function () {
+    $c = new App\AuthController();
+    return $c->logout();
+});
 
 
-$klein->dispatch();
+$router->dispatch();
+
+

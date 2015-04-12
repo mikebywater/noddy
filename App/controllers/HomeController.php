@@ -7,8 +7,11 @@ use Parrot\Quote;
 
 class HomeController extends BaseController{
 
+
     public function __construct(){
         $this::init();
+        $this->auth = new Auth();
+
     }
 
     public function welcome(){
@@ -21,10 +24,9 @@ class HomeController extends BaseController{
     }
 
     public function home(){
-
-        $quote = "Noddy says relax";
-
-        return $this->m->render('home', array("quote" => $quote));
+      $this->auth->authorize();
+      $user = $this->auth->user()->toArray();
+      return $this->m->render('home', array("user" => $user));
 
     }
 }

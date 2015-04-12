@@ -8,7 +8,8 @@ use Mustache_Loader_FilesystemLoader;
 
 class BaseController {
 
-    var $m;
+    public $m;
+    public $auth;
 
 
     public function init($entity = "")
