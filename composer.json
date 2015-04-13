@@ -1,10 +1,4 @@
 {
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://mikebywater@bitbucket.org/mikebywater/parrot.git"
-    }
-  ],
   "require": {
     "illuminate/database": "*",
     "mustache/mustache": "*",
