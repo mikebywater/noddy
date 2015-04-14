@@ -15,7 +15,7 @@
       "email": "mike.j.bywater@gmail.com"
     }
   ],
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "autoload":{
     "classmap": [ "App/" ]
   }
