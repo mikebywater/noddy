@@ -127,3 +127,4 @@ $router->respond("GET", "/' . $plural . '/create", function () {
 
     file_put_contents($dir . "/" . $filename, $data);
 }
+

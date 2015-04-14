@@ -1,4 +1,6 @@
 {
+  "name": "mikebywater/noddy",
+  "description": "framework",
   "require": {
     "illuminate/database": "*",
     "mustache/mustache": "*",
@@ -6,7 +8,18 @@
     "mikebywater/parrot" : "dev-master",
     "robmorgan/phinx": "*"
   },
+  "license": "GPL",
+  "authors": [
+    {
+      "name": "mike.bywater",
+      "email": "mike.j.bywater@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
   "autoload":{
     "classmap": [ "App/" ]
   }
 }
+
+
+
