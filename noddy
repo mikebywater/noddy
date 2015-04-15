@@ -39,19 +39,19 @@ else
             autoload();
             break;
         case "model":
-            model($entity);
+            model($entity,$fields);
             autoload();
             break;
         case "table":
-            table($plural,$fields);
+            table($entity,$plural,$fields);
             autoload();
             break;
         case "resource":
             view($plural,$fields);
             controller($entity, $plural);
-            model($entity);
+            model($entity,$fields);
             route($entity, $plural);
-            table($plural,$fields);
+            table($entity,$plural,$fields);
             autoload();
             break;
     }
@@ -64,22 +64,27 @@ function view($plural,$fields)
 
     foreach($types as $type) {
         $filename = "$type.mustache";
-        $data = "<h1>$plural $type </h1>";
+        $data = "{{>../layouts/master-top}}
+<h1>$plural $type </h1>";
         if($type == "create" && $fields)
         {
             $inputs = "";
             foreach($fields as $field){
-                $inputs = $inputs . '<input name="'. $field . '" />
+                $inputs = $inputs . $field . ': <input name="'. $field . '" /><br/>
                 ';
             }
             $data = $data . '
-            <form action="$' . $plural . '" method = "POST">
+            <form action="/' . $plural . '" method = "POST">
                 '. $inputs .'
-            </form>';
+            <button>Create</button>
+            </form>
+            {{>../layouts/master-bottom}}';
         }
         if($type == "index" && $fields)
         {
-$data = '<table>
+$data = ' {{>../layouts/master-top}}
+<h1>Teams</h1>
+<table class = "table table-striped">
     <tr>';
 
         foreach($fields as $field)
@@ -89,15 +94,16 @@ $data = '<table>
         }
             $data = $data . '
     </tr>
-    <tr>';
+    {{#.}}<tr>';
         foreach($fields as $field)
             {
                 $data = $data . '
         <td>{{' . $field . '}}</td>';
             }
             $data = $data . '
-    </tr>
-</table>';
+    </tr>{{/.}}
+</table>
+{{>../layouts/master-bottom}}';
 
         }
         file_put_contents($dir . "/" . $filename, $data);
@@ -150,7 +156,7 @@ file_put_contents($dir . "/" . $filename, $data);
 }
 
 
-function model($entity)
+function model($entity,$fields)
 {
     $filename = $entity . '.php';
     $dir = 'App/models';
@@ -161,6 +167,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class ' . $entity . ' extends Model {
+
+    protected $fillable = [';
+
+foreach($fields as $field){
+    $data = $data . '"' . $field . '",';
+}
+
+
+$data = rtrim($data , ",") . '];
 
     public $timestamps = false;
 }';
@@ -190,18 +205,19 @@ $router->respond("GET", "/' . $plural . '/create", function () {
     return $c->create();
 });
 $router->respond("POST", "/'. $plural .'", function () {
-    $c = new App\AuthController();
-    return $c->store($_POST);
+     $c = new App\\' . $entity  . 'Controller();
+     $c->store($_POST);
+     return $c->index();
 });
 ';
 
     file_put_contents($dir . "/" . $filename, $data);
 }
 
-function table($plural,$fields)
+function table($entity,$plural,$fields)
 {
     $dir = "migrations";
-    $filename = date("Ymdhis")."_create_" . $plural . "_table.php";
+    $filename = date("Ymdhis")."_create_" . strtolower($entity) . "_table.php";
     $columnData = "";
     foreach($fields as $field){
         $columnData = $columnData . '$table->addColumn("' . $field .'", "string", array("limit" => 40));
@@ -213,7 +229,7 @@ function table($plural,$fields)
 
 use Phinx\Migration\AbstractMigration;
 
-class CreateUserTable extends AbstractMigration
+class Create'. $entity .'Table extends AbstractMigration
 {
 
     public function change()
