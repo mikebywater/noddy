@@ -123,10 +123,10 @@ class ' . $entity .'Controller extends BaseController{
     public function __construct(){
         $this::init("' . $plural .'");
         $this->auth = new Auth();
+        $this->auth->authorize();
     }
 
     public function index(){
-        $this->auth->authorize();
         $' . $plural . ' = ' . $entity .'::all()->toArray();
         return $this->m->render("index", $' . $plural .');
 
@@ -134,7 +134,6 @@ class ' . $entity .'Controller extends BaseController{
 
     public function show($id)
     {
-        $this->auth->authorize();
         $' . strtolower($entity) . ' = ' . $entity .'::find($id)->toArray();
         return $this->m->render("show", $' . strtolower($entity) .');
     }
