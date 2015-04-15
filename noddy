@@ -83,7 +83,7 @@ function view($plural,$fields)
         if($type == "index" && $fields)
         {
 $data = ' {{>../layouts/master-top}}
-<h1>Teams</h1>
+<h1>' . ucwords($plural) . '</h1>
 <table class = "table table-striped">
     <tr>';
 
