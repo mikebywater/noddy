@@ -1,32 +1,62 @@
 <?php
+$action = "";
+$fields = "";
 
-$action = $argv[1];
-$entity = ucwords ( rtrim($argv[2],"s"));
-$plural = strtolower(rtrim($argv[2],"s")) . 's';
-
-switch ($action)
-{
-    case "view":
-        view($plural);
-        break;
-    case "controller":
-        controller($entity,$plural);
-        break;
-    case "route":
-        route($entity,$plural);
-        break;
-    case "model":
-        model($entity);
-        break;
-    case "resource":
-        view($plural);
-        controller($entity,$plural);
-        model($entity);
-        route($entity,$plural);
-        break;
+if (isset($argv[1])) {
+    $action = $argv[1];
+}
+if (isset($argv[2])) {
+    $entity = ucwords(rtrim($argv[2], "s"));
+    $plural = strtolower(rtrim($argv[2], "s")) . 's';
 }
 
-function view($plural)
+if (isset($argv[3])) {
+    if(substr($argv[3], 0, 9) == "--fields="){
+        $list = substr($argv[3], 9);
+        $fields = explode(",",$list);
+    }
+}
+
+
+
+if(!$action) {
+ echo "Invalid parameter";
+}
+else
+{
+
+    switch ($action) {
+        case "view":
+            view($plural,$fields);
+            autoload();
+            break;
+        case "controller":
+            controller($entity, $plural);
+            autoload();
+            break;
+        case "route":
+            route($entity, $plural);
+            autoload();
+            break;
+        case "model":
+            model($entity,$fields);
+            autoload();
+            break;
+        case "table":
+            table($entity,$plural,$fields);
+            autoload();
+            break;
+        case "resource":
+            view($plural,$fields);
+            controller($entity, $plural);
+            model($entity,$fields);
+            route($entity, $plural);
+            table($entity,$plural,$fields);
+            autoload();
+            break;
+    }
+}
+function view($plural,$fields)
 {
     $types = array("index" , "show" , "edit" , "create");
     $dir = "views/$plural";
@@ -34,7 +64,48 @@ function view($plural)
 
     foreach($types as $type) {
         $filename = "$type.mustache";
-        $data = "<h1>$plural $type </h1>";
+        $data = "{{>../layouts/master-top}}
+<h1>$plural $type </h1>";
+        if($type == "create" && $fields)
+        {
+            $inputs = "";
+            foreach($fields as $field){
+                $inputs = $inputs . $field . ': <input name="'. $field . '" /><br/>
+                ';
+            }
+            $data = $data . '
+            <form action="/' . $plural . '" method = "POST">
+                '. $inputs .'
+            <button>Create</button>
+            </form>
+            {{>../layouts/master-bottom}}';
+        }
+        if($type == "index" && $fields)
+        {
+$data = ' {{>../layouts/master-top}}
+<h1>Teams</h1>
+<table class = "table table-striped">
+    <tr>';
+
+        foreach($fields as $field)
+        {
+            $data = $data . '
+        <th>' . $field . '</th>';
+        }
+            $data = $data . '
+    </tr>
+    {{#.}}<tr>';
+        foreach($fields as $field)
+            {
+                $data = $data . '
+        <td>{{' . $field . '}}</td>';
+            }
+            $data = $data . '
+    </tr>{{/.}}
+</table>
+{{>../layouts/master-bottom}}';
+
+        }
         file_put_contents($dir . "/" . $filename, $data);
     }
 }
@@ -85,7 +156,7 @@ file_put_contents($dir . "/" . $filename, $data);
 }
 
 
-function model($entity)
+function model($entity,$fields)
 {
     $filename = $entity . '.php';
     $dir = 'App/models';
@@ -96,6 +167,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class ' . $entity . ' extends Model {
+
+    protected $fillable = [';
+
+foreach($fields as $field){
+    $data = $data . '"' . $field . '",';
+}
+
+
+$data = rtrim($data , ",") . '];
 
     public $timestamps = false;
 }';
@@ -123,8 +203,66 @@ $router->respond("GET", "/' . $plural . '/[i:id]", function ($request) {
 $router->respond("GET", "/' . $plural . '/create", function () {
     $c = new App\\' . $entity  . 'Controller();
     return $c->create();
-});    ';
+});
+$router->respond("POST", "/'. $plural .'", function () {
+     $c = new App\\' . $entity  . 'Controller();
+     $c->store($_POST);
+     return $c->index();
+});
+';
 
     file_put_contents($dir . "/" . $filename, $data);
+}
+
+function table($entity,$plural,$fields)
+{
+    $dir = "migrations";
+    $filename = date("Ymdhis")."_create_" . strtolower($entity) . "_table.php";
+    $columnData = "";
+    foreach($fields as $field){
+        $columnData = $columnData . '$table->addColumn("' . $field .'", "string", array("limit" => 40));
+        ' ;
+    }
+
+
+    $data = '<?php
+
+use Phinx\Migration\AbstractMigration;
+
+class Create'. $entity .'Table extends AbstractMigration
+{
+
+    public function change()
+    {
+        $table = $this->table("'. $plural .'");
+
+        ' . $columnData . '
+        $table->create();
+    }
+
+
+    /**
+     * Migrate Up.
+     */
+    public function up()
+    {
+
+    }
+
+    /**
+     * Migrate Down.
+     */
+    public function down()
+    {
+
+    }
+}
+';
+    file_put_contents($dir . "/" . $filename, $data);
+}
+
+function autoload()
+{
+    shell_exec ( "composer dump-autoload");
 }
 
