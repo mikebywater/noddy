@@ -1,10 +1,5 @@
 <?php
-$router->respond('GET', '/', function () {
-    $c = new App\HomeController();
-    return $c->welcome();
-});
 
-$router->respond('GET', '/home', function () {
-    $c = new App\HomeController();
-    return $c->home();
+$router->respond('GET', '/', function () {
+    return (new \MyApp\User\Http\HomeController())->welcome();
 });
